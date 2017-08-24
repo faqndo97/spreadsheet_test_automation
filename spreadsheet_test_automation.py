@@ -31,7 +31,7 @@ def formatHeaders(headers):
     return "{" + ','.join(listHeaders) + "}"
     
 
-# Line -> [caso, objetivo, que se espera, metodo, url prod, cant. header, separador, headers, body]
+# Line -> [caso, objetivo, que se espera, metodo, url prod, headers, body]
 with  fileCsv as f:
     reader = csv.reader(f, delimiter="\t") 
     bar = ChargingBar('Processing', max=cantOfCases)
@@ -40,8 +40,8 @@ with  fileCsv as f:
             bar.next()
             method = line[3]
             url = domain + line[4].split("[URL]")[1]
-            headers = json.loads(formatHeaders(line[7]))
-            body = line[8]
+            headers = json.loads(formatHeaders(line[5]))
+            body = line[6]
 
             if method == "GET":
                 r = requests.get(url)
